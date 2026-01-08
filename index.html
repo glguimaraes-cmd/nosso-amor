@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nosso Amor 💖</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #ff9a9e, #fad0c4);
+  color: #fff;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* CORAÇÕES */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatUp linear infinite;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 0.6; }
+  to { transform: translateY(-110vh); opacity: 0; }
+}
+
+header {
+  padding: 50px 20px;
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(10px);
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+nav button {
+  background: none;
+  border: 1px solid white;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+section {
+  min-height: 100vh;
+  padding: 50px 20px;
+}
+
+img {
+  max-width: 90%;
+  max-height: 65vh;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.controls {
+  margin-top: 15px;
+}
+
+.controls button {
+  font-size: 22px;
+  padding: 10px 16px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+.caption {
+  margin-top: 12px;
+  font-size: 22px;
+}
+
+#timer {
+  font-size: 32px;
+  margin-top: 20px;
+}
+
+.quote {
+  font-size: 28px;
+  font-style: italic;
+  max-width: 900px;
+  margin: auto;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Nosso Amor 💕</h1>
+</header>
+
+<nav>
+  <button onclick="go('momentos')">Momentos 📸</button>
+  <button onclick="go('tempo')">Nosso Tempo ⏳</button>
+  <button onclick="go('amor')">Amor 💖</button>
+  <button onclick="openBook()">Livro 📖</button>
+</nav>
+
+<section id="momentos">
+  <h2>Nossos Momentos</h2>
+
+  <img id="photo" src="foto1.jpeg?v=2">
+
+  <div class="caption" id="caption"></div>
+
+  <div class="controls">
+    <button onclick="prev()">⬅️</button>
+    <button onclick="next()">➡️</button>
+  </div>
+
+  <p>Clique na foto para tocar a música 🎶</p>
+</section>
+
+<section id="tempo">
+  <h2>Estamos juntos há</h2>
+  <div id="timer"></div>
+</section>
+
+<section id="amor">
+  <p class="quote">
+    “Eu te amo mais que tudo de coração e alma para todo o sempre, Altinha.”
+  </p>
+</section>
+
+<footer>
+  Feito com amor 💖
+</footer>
+
+<audio id="audio"></audio>
+
+<script>
+function go(id) {
+  document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+}
+
+/* TIMER */
+const startDate = new Date(2024, 8, 21);
+setInterval(() => {
+  let diff = Math.floor((new Date() - startDate) / 1000);
+  const d = Math.floor(diff / 86400);
+  diff %= 86400;
+  const h = Math.floor(diff / 3600);
+  diff %= 3600;
+  const m = Math.floor(diff / 60);
+  const s = diff % 60;
+  document.getElementById("timer").innerText =
+    `${d} dias • ${h}h ${m}m ${s}s`;
+}, 1000);
+
+/* DADOS */
+const photos = [
+  "foto1.jpeg?v=2",
+  "foto2.jpeg?v=2",
+  "foto3.jpeg?v=2",
+  "foto4.jpeg?v=2",
+  "foto5.jpeg?v=2",
+  "foto6.jpeg?v=2"
+];
+
+const songs = [
+  "2-much.mp3?v=2",
+  "alianca.mp3?v=2",
+  "amor-puro.mp3?v=2",
+  "a-nossa-praia.mp3?v=2",
+  "me-encontra.mp3?v=2",
+  "o-mundo-e-nosso.mp3?v=2"
+];
+
+const captions = [
+  "Nosso começo 💕",
+  "Você e eu, sempre",
+  "Um dos dias mais felizes",
+  "Meu lugar é com você",
+  "Amor em cada detalhe",
+  "E isso é só o começo da nossa história"
+];
+
+let i = 0;
+const img = document.getElementById("photo");
+const audio = document.getElementById("audio");
+const caption = document.getElementById("caption");
+
+function play() {
+  audio.src = songs[i];
+  audio.play();
+}
+
+function update() {
+  img.src = photos[i];
+  caption.innerText = captions[i];
+  play();
+}
+
+img.onclick = play;
+
+function next() {
+  i = (i + 1) % photos.length;
+  update();
+}
+
+function prev() {
+  i = (i - 1 + photos.length) % photos.length;
+  update();
+}
+
+/* CORAÇÕES */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+  heart.style.fontSize = (16 + Math.random() * 22) + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 8000);
+}, 600);
+
+/* LIVRO */
+function openBook() {
+  window.open("Do_Caos_ao_Amor_Verdadeiro_COMPLETO.pdf", "_blank");
+}
+</script>
+
+</body>
+</html>
